@@ -1,0 +1,7 @@
+name: 'THX-i Default Content'
+type: module
+package: THX-i
+description: 'Adds default content.'
+dependencies:
+  - serialization
+core_version_requirement: ^8 || ^9

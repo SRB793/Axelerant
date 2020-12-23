@@ -1,0 +1,12 @@
+thxi_default_content.authenticateAndAuthorize:
+  path: '/page_json/{key}/{rid}'
+  defaults:
+    _title: 'Api data'
+    _controller: '\Drupal\thxi_default_content\Controller\PageJson::checkPage'
+  options:
+    parameters:
+      rid:
+        type: integer
+  requirements:
+    # _custom_access: '\Drupal\thxi_default_content\Controller\PageJson::checkAccess'
+    _permission: 'access content'
