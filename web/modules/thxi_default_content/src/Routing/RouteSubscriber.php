@@ -10,6 +10,7 @@ use Symfony\Component\Routing\RouteCollection;
 class RouteSubscriber extends RouteSubscriberBase {
 
   /**
+   * Altering the routes to extend the route based config of site information form.
    * {@inheritdoc}
    */
   protected function alterRoutes(RouteCollection $collection) {

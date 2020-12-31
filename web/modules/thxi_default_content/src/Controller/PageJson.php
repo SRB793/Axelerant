@@ -1,20 +1,16 @@
 <?php
+
 namespace Drupal\thxi_default_content\Controller;
+
+
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use \GuzzleHttp\Exception\RequestException;
-use Drupal\node\NodeInterface;
-use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Access\AccessResult;
 
 class PageJson extends ControllerBase {
 
     /**
-       * Get configuration or state setting for this Fpx integration module.
-       *
-       * @param string $name this module's config or state.
+       * Get json format of Page Node.
        *
        * @return mixed
        */
@@ -26,21 +22,24 @@ class PageJson extends ControllerBase {
           $path = \Drupal::request()->getpathInfo();
           $arg  = explode('/',$path);
           $key = '';
+          // Check if site api key matches
           if( false == empty( $arg[2] ) ) {
             $key = $arg[2];
             $siteapikey = \Drupal::config('system.site')->get('siteapikey');
             if ( $key != $siteapikey ) {
-              //access denied
+              //Access denied
               $output['data'] = 'Access Denied';
               return new JsonResponse($output);
             }
           }
           $nid = $arg[3];
           $node = Node::load($nid);
+          // Check if node exist
           if( true == empty( $node ) ) {
             $output['data'] = 'Node does not exist.';
             $output['status'] = false;
           } else {
+            // Use of serializer to get json encoding
             $serializer = \Drupal::service('serializer');
             $data = $serializer->serialize($node, 'json', ['plugin_id' => 'entity']);
             $output['data'] = json_decode($data);
