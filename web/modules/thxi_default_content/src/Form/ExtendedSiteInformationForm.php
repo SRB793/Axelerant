@@ -4,7 +4,6 @@ namespace Drupal\thxi_default_content\Form;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\system\Form\SiteInformationForm;
 
-
 class ExtendedSiteInformationForm extends SiteInformationForm {
  
    /**
@@ -30,9 +29,9 @@ class ExtendedSiteInformationForm extends SiteInformationForm {
 	  public function submitForm(array &$form, FormStateInterface $form_state) {
 		$site_config = $this->config('system.site');
 		$flag = FALSE;
-        if ($site_config->get('siteapikey') != $form_state->getValue('siteapikey')) {
-			$flag = TRUE;
-		}
+      if ($site_config->get('siteapikey') != $form_state->getValue('siteapikey')) {
+        $flag = TRUE;
+      }
 		$this->config('system.site')
 		  ->set('siteapikey', $form_state->getValue('siteapikey'))
 		  ->save();
